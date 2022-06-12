@@ -29,5 +29,7 @@ namespace KCommerceAPI.Controllers
             })
             .ToArray();
         }
+
+        //[HttpGet]
     }
 }
