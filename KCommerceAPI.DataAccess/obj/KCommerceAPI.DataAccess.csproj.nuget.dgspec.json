@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj": {}
+    "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj": {}
   },
   "projects": {
-    "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj": {
+    "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj",
+        "projectUniqueName": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj",
         "projectName": "KCommerceAPI.DataAccess",
-        "projectPath": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj",
+        "projectPath": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.DataAccess\\KCommerceAPI.DataAccess.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.DataAccess\\obj\\",
+        "outputPath": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

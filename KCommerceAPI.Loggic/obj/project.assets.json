@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.Loggic\\KCommerceAPI.Loggic.csproj",
+      "projectUniqueName": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.Loggic\\KCommerceAPI.Loggic.csproj",
       "projectName": "KCommerceAPI.Loggic",
-      "projectPath": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.Loggic\\KCommerceAPI.Loggic.csproj",
+      "projectPath": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.Loggic\\KCommerceAPI.Loggic.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\DOTNET06\\KCOMMERCE\\KCommerceAPI.Loggic\\obj\\",
+      "outputPath": "F:\\Programs\\Ecommerce\\KURILL-COMMERCE-BACKEND\\KCommerceAPI.Loggic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
