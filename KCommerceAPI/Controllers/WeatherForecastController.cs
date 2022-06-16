@@ -30,10 +30,14 @@ namespace KCommerceAPI.Controllers
             .ToArray();
         }
 
+
         [HttpGet("myname")]
         public ActionResult getName()
         {
             return Ok("Lakshan");
         }
+
+        /*[HttpGet(Name = "getMyName")]
+        public*/
     }
 }

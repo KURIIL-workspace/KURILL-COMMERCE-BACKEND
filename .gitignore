@@ -174,5 +174,5 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 #vs
-.vs
+.vs/
 .vs/KCOMMERCE/v17/.suo
