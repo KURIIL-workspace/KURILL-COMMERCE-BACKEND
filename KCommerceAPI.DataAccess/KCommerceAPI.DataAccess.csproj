@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DbScript\Development\" />
     <Folder Include="DbScript\Released\" />
     <Folder Include="EfCore\" />
   </ItemGroup>
