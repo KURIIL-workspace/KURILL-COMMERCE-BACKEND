@@ -108,3 +108,94 @@ create table purchase.purchase_invoice_item(
     constraint purchase_invoice_item_fk_2 foreign key (purchase_invoice_id)
     references purchase.purchase_order_item(id)
 );
+
+-- create table settings.sales_order_status(
+-- id smallint not null,
+-- name varchar(30),
+-- description varchar(50),
+-- constraint sales_order_status_pk primary key(id)
+-- );
+
+create table public.stock_status(
+id uuid not null,
+name varchar(30),
+description varchar(30),
+constraint stock_status_pk primary key(id)
+);
+
+create table public.stock(
+id uuid not null,
+category_name varchar(20),
+item_name varchar(20),
+item_qty int,
+unit_price numeric(20,2),
+selling_price numeric(20,2),
+emp_id uuid,
+status_id uuid,
+constraint stock_pk primary key(id),
+constraint stock_fk_1 foreign key(emp_id) references person.employee(id),
+constraint stock_fk_2 foreign key(status_id) references public.stock_status(id)
+
+);
+
+create table sales.sales_order(
+id uuid not null,
+cus_id uuid,
+cus_name varchar(20),
+category_name varchar(20),
+item_name varchar(20),
+odr_qty int,
+selling_price numeric(20,2),
+total_price numeric(20,2),
+status_id smallint,
+status varchar(30),
+stock_id uuid,
+constraint sales_order_pk primary key(id),
+constraint sales_order_fk_1 foreign key(cus_id) references person.customer(id),
+constraint sales_order_fk_2 foreign key(stock_id) references public.stock(id)
+
+);
+
+create table sales.sales_order_items(
+id smallint not null,
+product_name varchar(30),
+qty int,
+unit_price numeric(20,2),
+sales_order_id uuid,
+constraint sales_order_items_pk primary key(id),
+constraint sales_order_fk_1 foreign key(sales_order_id) references sales.sales_order(id)
+);
+
+create table purchase.goods_recieve_note(
+id uuid not null,
+purchase_order_id uuid,
+checked_employee_id uuid,
+checked_date date,
+purchase_invoice_id uuid,
+description varchar(30),
+constraint goods_recieve_note_pk primary key(id),
+constraint goods_recieve_note_fk_1 foreign key(purchase_order_id) references purchase.purchase_order(id),
+constraint goods_recieve_note_fk_2 foreign key(checked_employee_id) references person.employee(id),
+constraint goods_recieve_note_fk_3 foreign key(purchase_invoice_id) references purchase.purchase_invoice(id)
+
+);
+
+create table  purchase.goods_recieve_note_items(
+id uuid not null,
+goods_recieve_note_id uuid,
+ordered_qty int,
+recieved_qty int,
+damaged_qty int,
+other_deducted_qty int,
+remaining_qty int,
+description varchar(30),
+created_date_time date,
+updated_date_time date,
+unit_price numeric(20,2),
+constraint goods_recieve_note_items_pk primary key(id),
+constraint goods_recieve_note_items_fk_1 foreign key(goods_recieve_note_id) references purchase.goods_recieve_note(id)
+
+);
+
+--QUERIES ADDED 
+
