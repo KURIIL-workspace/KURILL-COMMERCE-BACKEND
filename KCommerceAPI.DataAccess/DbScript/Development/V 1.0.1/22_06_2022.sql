@@ -108,3 +108,5 @@ create table purchase.purchase_invoice_item(
     constraint purchase_invoice_item_fk_2 foreign key (purchase_invoice_id)
     references purchase.purchase_order_item(id)
 );
+
+--ishkhan ahamed 
