@@ -109,6 +109,7 @@ create table purchase.purchase_invoice_item(
     references purchase.purchase_order_item(id)
 );
 
+
 -- create table settings.sales_order_status(
 -- id smallint not null,
 -- name varchar(30),
@@ -198,4 +199,7 @@ constraint goods_recieve_note_items_fk_1 foreign key(goods_recieve_note_id) refe
 );
 
 --QUERIES ADDED 
+
+
+--ishkhan ahamed 
 
