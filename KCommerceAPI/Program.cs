@@ -70,6 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var services = builder.Services;
 
 services.AddScoped<IEmployeeLoginLogic, EmployeeLoginLogic>();
+services.AddScoped<IEmployeeLogic, EmployeeLogic>();
 
 
 var app = builder.Build();
