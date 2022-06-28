@@ -12,6 +12,7 @@ namespace KCommerceAPI.Logic.Person.Employee
         public Task<Guid> AddNewAsync(EmployeeLogin employeeLogin, string password)
         {
             throw new NotImplementedException();
+            //implement the logic and connect witrh transaction scope
         }
 
         public Task DeleteAsync(Guid employeeLoginId)
