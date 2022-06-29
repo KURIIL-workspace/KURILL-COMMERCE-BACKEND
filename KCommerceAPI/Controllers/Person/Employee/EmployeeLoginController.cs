@@ -3,6 +3,7 @@ using KCommerceAPI.Common;
 using KCommerceAPI.DataAccess.EfCore;
 using KCommerceAPI.Logic.Person.Employee;
 using KCommerceAPI.Models.Json.Input.Person.Employee;
+using KCommerceAPI.Models.Json.Result;
 using KCommerceAPI.Models.Json.Result.Person.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ namespace KCommerceAPI.Controllers
     [Route("api/employee_login")]
     [ApiController]
     [Produces("application/json")]
-    //[ProducesErrorResponseType(typeof(ErrorResultJson))]
+    [ProducesErrorResponseType(typeof(ErrorResultJson))]
     [Authorize]
     public class EmployeeLoginController : ControllerBase
     {

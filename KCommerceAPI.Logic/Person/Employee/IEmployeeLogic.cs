@@ -12,7 +12,7 @@ namespace KCommerceAPI.Logic.Person.Employee
         Task<Guid> AddNewAsync(dbCore.Employee employee);
         Task UpdateStatus(Guid employeeId, short statusId);
         Task DeleteAsync(Guid id);
-        Task<dbCore.Employee> UpdateAsync(Guid employeeId, dbCore.Employee employee);
-        Task<Guid> GetRecordCount();
+        Task UpdateAsync(Guid employeeId, dbCore.Employee employee);
+        Task<int> GetRecordCount();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KCommerceAPI.Logic.Person.Employee;
 using KCommerceAPI.Models.Json.Input.Person.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -10,6 +11,7 @@ namespace KCommerceAPI.Controllers.Person.Employee
 {
     [Route("api/employee")]
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -78,7 +80,7 @@ namespace KCommerceAPI.Controllers.Person.Employee
         public async Task<IActionResult> Update([FromRoute(Name = "employeeId")] Guid employeeId, [FromBody] EmployeeInputJson employeeInputJson)
         {
             var employee = mapper.Map<dbCore.Employee>(employeeInputJson);
-            employee = await employeeLogic.UpdateAsync(employeeId, employee);
+             await employeeLogic.UpdateAsync(employeeId, employee);
 
             //var result = mapper.Map<EmployeeResultJson>(employee);
 
