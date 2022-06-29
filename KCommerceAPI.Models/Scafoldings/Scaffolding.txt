@@ -1,0 +1,3 @@
+﻿>KCommerceAPI db context
+
+dotnet ef dbcontext scaffold "User ID=postgres;Password=test;Server=localhost;Port=5432;Database=k_com_db" Npgsql.EntityFrameworkCore.PostgreSQL -c KComDbContext -f -o EfCore -p  KCommerceAPI.DataAccess\KCommerceAPI.DataAccess.csproj  --startup-project KCommerceAPI\KCommerceAPI.csproj
