@@ -1,5 +1,7 @@
-﻿create table purchase.purchase_order_item(
-    id uuid not null,
+﻿
+
+create table purchase.purchase_order_item(
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     product_name varchar(20),
     qty int,
     unit_price numeric(28,2),
@@ -17,7 +19,7 @@ create table settings.purchase_invoice_status(
 );
 
 create table person.supplier(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     supplier_name varchar(20),
     supplier_contact varchar(10),
     constraint supplier_pk primary key(id)
@@ -44,14 +46,14 @@ references settings.employee_status(id);
 -- );
 
 create table person.customer(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     customer_name varchar(20),
     customer_contact varchar(10),
     constraint customer_pk primary key(id)
 );
 
 create table purchase.purchase_invoice(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     created_date_time timestamp without time zone NOT NULL DEFAULT (now())::timestamp without time zone,
     updated_date_time timestamp without time zone,
     status_id smallint,
@@ -69,7 +71,7 @@ create table purchase.purchase_invoice(
 create schema contact;
 
 create table contact.address(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     add_line_1 varchar (20),
     add_line_2 varchar (20),
     postal_code int,
@@ -89,14 +91,14 @@ create table contact.address(
 create schema category;
 
 create table category.category(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     category_name varchar(20),
     brand_name varchar(20),
     constraint category_fk primary key(id)
 );
 
 create table purchase.purchase_invoice_item(
-    id uuid not null,
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     category_id uuid,
     item_name varchar(20),
     item_quantity smallint,
@@ -118,14 +120,14 @@ create table purchase.purchase_invoice_item(
 -- );
 
 create table public.stock_status(
-id uuid not null,
+id uuid NOT NULL DEFAULT uuid_generate_v4(),
 name varchar(30),
 description varchar(30),
 constraint stock_status_pk primary key(id)
 );
 
 create table public.stock(
-id uuid not null,
+id uuid NOT NULL DEFAULT uuid_generate_v4(),
 category_name varchar(20),
 item_name varchar(20),
 item_qty int,
@@ -139,8 +141,9 @@ constraint stock_fk_2 foreign key(status_id) references public.stock_status(id)
 
 );
 
+create schema sales;
 create table sales.sales_order(
-id uuid not null,
+id uuid NOT NULL DEFAULT uuid_generate_v4(),
 cus_id uuid,
 cus_name varchar(20),
 category_name varchar(20),
@@ -168,7 +171,7 @@ constraint sales_order_fk_1 foreign key(sales_order_id) references sales.sales_o
 );
 
 create table purchase.goods_recieve_note(
-id uuid not null,
+id uuid NOT NULL DEFAULT uuid_generate_v4(),
 purchase_order_id uuid,
 checked_employee_id uuid,
 checked_date date,
@@ -182,7 +185,7 @@ constraint goods_recieve_note_fk_3 foreign key(purchase_invoice_id) references p
 );
 
 create table  purchase.goods_recieve_note_items(
-id uuid not null,
+id uuid NOT NULL DEFAULT uuid_generate_v4(),
 goods_recieve_note_id uuid,
 ordered_qty int,
 recieved_qty int,

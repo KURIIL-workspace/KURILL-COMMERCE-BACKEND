@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KCommerceAPI.Logic.Person.Employee;
 using KCommerceAPI.Models.Json.Input.Person.Employee;
+using KCommerceAPI.Models.Json.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,10 @@ namespace KCommerceAPI.Controllers.Person.Employee
 {
     [Route("api/employee")]
     [ApiController]
+    [Produces("application/json")]
+    [ProducesErrorResponseType(typeof(ErrorResultJson))]
     [Authorize]
+    
     public class EmployeeController : ControllerBase
     {
         private readonly IMapper mapper;

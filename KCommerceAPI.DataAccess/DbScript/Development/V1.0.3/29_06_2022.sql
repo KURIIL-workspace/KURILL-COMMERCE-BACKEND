@@ -16,3 +16,9 @@ ALTER TABLE IF EXISTS settings.document_ref
 
 alter table person.employee_login drop column password;
 alter table person.employee_login add column password varchar(200);
+
+alter table person.employee drop column updated_date_time;
+alter table person.employee add column birth_date timestamp without time zone;
+
+insert into settings.employee_status(id,name) values(1,'Admin'),(2,'Manager'),(3,'Assistant');
+

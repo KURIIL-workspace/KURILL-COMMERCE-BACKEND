@@ -26,8 +26,7 @@ namespace KCommerceAPI.Logic.Person.Employee
             using (var scope = new TransactionScope(TransactionScopeOption.Required,
                                TransactionScopeAsyncFlowOption.Enabled))
             {
-                employee.StatusId = 1;
-                
+                             
 
                 kComDbContext.Employees.Add(employee);
                 await kComDbContext.SaveChangesAsync();
