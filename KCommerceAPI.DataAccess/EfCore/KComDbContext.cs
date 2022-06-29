@@ -19,6 +19,7 @@ namespace KCommerceAPI.DataAccess.EfCore
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<DocumentRef> DocumentRefs { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<EmployeeLogin> EmployeeLogins { get; set; } = null!;
         public virtual DbSet<EmployeeStatus> EmployeeStatuses { get; set; } = null!;
@@ -117,6 +118,23 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.Property(e => e.CustomerName)
                     .HasMaxLength(20)
                     .HasColumnName("customer_name");
+            });
+
+            modelBuilder.Entity<DocumentRef>(entity =>
+            {
+                entity.ToTable("document_ref", "settings");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.Format)
+                    .HasMaxLength(100)
+                    .HasColumnName("format");
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .HasColumnName("type");
             });
 
             modelBuilder.Entity<Employee>(entity =>

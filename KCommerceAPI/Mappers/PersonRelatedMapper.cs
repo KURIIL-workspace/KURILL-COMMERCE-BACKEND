@@ -8,8 +8,8 @@ namespace KCommerceAPI.Mappers
     {
         public PersonRelatedMapper()
         {
-            CreateMap<dbCore.Employee, EmployeeInputJson>();
-            CreateMap<dbCore.EmployeeLogin, EmployeeLoginInputJson>();
+            CreateMap<EmployeeInputJson, dbCore.Employee>();
+            CreateMap<EmployeeLoginInputJson, dbCore.EmployeeLogin>();
 
         }
     }
