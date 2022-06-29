@@ -16,12 +16,13 @@ namespace KCommerceAPI.Models.Json.Input.Person.Employee
         public string? LastName { get; set; }
 
         [JsonPropertyName("birth_date")]
-        public DateOnly? BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [JsonPropertyName("contact")]
         public string? Contact { get; set; }
 
-        [JsonPropertyName("employee_status")]
-        public short? EmployeeStatus { get; set; }
+        [JsonPropertyName("status_id")]
+        public short? StatusId { get; set; }
+
     }
 }

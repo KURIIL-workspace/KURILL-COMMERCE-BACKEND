@@ -16,6 +16,7 @@ namespace KCommerceAPI.Controllers
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(ErrorResultJson))]
     [Authorize]
+    
     public class EmployeeLoginController : ControllerBase
     {
        

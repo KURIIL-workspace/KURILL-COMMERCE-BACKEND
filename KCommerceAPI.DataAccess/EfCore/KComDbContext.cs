@@ -23,12 +23,18 @@ namespace KCommerceAPI.DataAccess.EfCore
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<EmployeeLogin> EmployeeLogins { get; set; } = null!;
         public virtual DbSet<EmployeeStatus> EmployeeStatuses { get; set; } = null!;
+        public virtual DbSet<GoodsRecieveNote> GoodsRecieveNotes { get; set; } = null!;
+        public virtual DbSet<GoodsRecieveNoteItem> GoodsRecieveNoteItems { get; set; } = null!;
         public virtual DbSet<PurchaseInvoice> PurchaseInvoices { get; set; } = null!;
         public virtual DbSet<PurchaseInvoiceItem> PurchaseInvoiceItems { get; set; } = null!;
         public virtual DbSet<PurchaseInvoiceStatus> PurchaseInvoiceStatuses { get; set; } = null!;
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; } = null!;
         public virtual DbSet<PurchaseOrderItem> PurchaseOrderItems { get; set; } = null!;
         public virtual DbSet<PurchaseOrderStatus> PurchaseOrderStatuses { get; set; } = null!;
+        public virtual DbSet<SalesOrder> SalesOrders { get; set; } = null!;
+        public virtual DbSet<SalesOrderItem> SalesOrderItems { get; set; } = null!;
+        public virtual DbSet<Stock> Stocks { get; set; } = null!;
+        public virtual DbSet<StockStatus> StockStatuses { get; set; } = null!;
         public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,19 +42,21 @@ namespace KCommerceAPI.DataAccess.EfCore
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("User ID=postgres;Password=Nexu1000;Server=localhost;Port=5432;Database=k_com_db");
+                optionsBuilder.UseNpgsql("User ID=postgres;Password=Nexu1000;Server=localhost;Port=5432;Database=k_com_db_1");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("uuid-ossp");
+
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("address", "contact");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.AddLine1)
                     .HasMaxLength(20)
@@ -91,8 +99,8 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("category", "category");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.BrandName)
                     .HasMaxLength(20)
@@ -108,8 +116,8 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("customer", "person");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.CustomerContact)
                     .HasMaxLength(10)
@@ -142,10 +150,12 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("employee", "person");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
-                entity.Property(e => e.BirthDate).HasColumnName("birth_date");
+                entity.Property(e => e.BirthDate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("birth_date");
 
                 entity.Property(e => e.Code)
                     .HasMaxLength(10)
@@ -176,13 +186,13 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("employee_login", "person");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
 
                 entity.Property(e => e.Password)
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .HasColumnName("password");
 
                 entity.Property(e => e.UserName)
@@ -212,13 +222,87 @@ namespace KCommerceAPI.DataAccess.EfCore
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<GoodsRecieveNote>(entity =>
+            {
+                entity.ToTable("goods_recieve_note", "purchase");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.CheckedDate).HasColumnName("checked_date");
+
+                entity.Property(e => e.CheckedEmployeeId).HasColumnName("checked_employee_id");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(30)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.PurchaseInvoiceId).HasColumnName("purchase_invoice_id");
+
+                entity.Property(e => e.PurchaseOrderId).HasColumnName("purchase_order_id");
+
+                entity.HasOne(d => d.CheckedEmployee)
+                    .WithMany(p => p.GoodsRecieveNotes)
+                    .HasForeignKey(d => d.CheckedEmployeeId)
+                    .HasConstraintName("goods_recieve_note_fk_2");
+
+                entity.HasOne(d => d.PurchaseInvoice)
+                    .WithMany(p => p.GoodsRecieveNotes)
+                    .HasForeignKey(d => d.PurchaseInvoiceId)
+                    .HasConstraintName("goods_recieve_note_fk_3");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithMany(p => p.GoodsRecieveNotes)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .HasConstraintName("goods_recieve_note_fk_1");
+            });
+
+            modelBuilder.Entity<GoodsRecieveNoteItem>(entity =>
+            {
+                entity.ToTable("goods_recieve_note_items", "purchase");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.CreatedDateTime).HasColumnName("created_date_time");
+
+                entity.Property(e => e.DamagedQty).HasColumnName("damaged_qty");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(30)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.GoodsRecieveNoteId).HasColumnName("goods_recieve_note_id");
+
+                entity.Property(e => e.OrderedQty).HasColumnName("ordered_qty");
+
+                entity.Property(e => e.OtherDeductedQty).HasColumnName("other_deducted_qty");
+
+                entity.Property(e => e.RecievedQty).HasColumnName("recieved_qty");
+
+                entity.Property(e => e.RemainingQty).HasColumnName("remaining_qty");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("unit_price");
+
+                entity.Property(e => e.UpdatedDateTime).HasColumnName("updated_date_time");
+
+                entity.HasOne(d => d.GoodsRecieveNote)
+                    .WithMany(p => p.GoodsRecieveNoteItems)
+                    .HasForeignKey(d => d.GoodsRecieveNoteId)
+                    .HasConstraintName("goods_recieve_note_items_fk_1");
+            });
+
             modelBuilder.Entity<PurchaseInvoice>(entity =>
             {
                 entity.ToTable("purchase_invoice", "purchase");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.CreatedDateTime)
                     .HasColumnType("timestamp without time zone")
@@ -256,8 +340,8 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("purchase_invoice_item", "purchase");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
@@ -306,8 +390,8 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("purchase_order", "purchase");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.CreatedDateTime)
                     .HasColumnType("timestamp without time zone")
@@ -335,8 +419,8 @@ namespace KCommerceAPI.DataAccess.EfCore
                 entity.ToTable("purchase_order_item", "purchase");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.ProductName)
                     .HasMaxLength(20)
@@ -373,13 +457,148 @@ namespace KCommerceAPI.DataAccess.EfCore
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<SalesOrder>(entity =>
+            {
+                entity.ToTable("sales_order", "sales");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.CategoryName)
+                    .HasMaxLength(20)
+                    .HasColumnName("category_name");
+
+                entity.Property(e => e.CusId).HasColumnName("cus_id");
+
+                entity.Property(e => e.CusName)
+                    .HasMaxLength(20)
+                    .HasColumnName("cus_name");
+
+                entity.Property(e => e.ItemName)
+                    .HasMaxLength(20)
+                    .HasColumnName("item_name");
+
+                entity.Property(e => e.OdrQty).HasColumnName("odr_qty");
+
+                entity.Property(e => e.SellingPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("selling_price");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(30)
+                    .HasColumnName("status");
+
+                entity.Property(e => e.StatusId).HasColumnName("status_id");
+
+                entity.Property(e => e.StockId).HasColumnName("stock_id");
+
+                entity.Property(e => e.TotalPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("total_price");
+
+                entity.HasOne(d => d.Cus)
+                    .WithMany(p => p.SalesOrders)
+                    .HasForeignKey(d => d.CusId)
+                    .HasConstraintName("sales_order_fk_1");
+
+                entity.HasOne(d => d.Stock)
+                    .WithMany(p => p.SalesOrders)
+                    .HasForeignKey(d => d.StockId)
+                    .HasConstraintName("sales_order_fk_2");
+            });
+
+            modelBuilder.Entity<SalesOrderItem>(entity =>
+            {
+                entity.ToTable("sales_order_items", "sales");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(30)
+                    .HasColumnName("product_name");
+
+                entity.Property(e => e.Qty).HasColumnName("qty");
+
+                entity.Property(e => e.SalesOrderId).HasColumnName("sales_order_id");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("unit_price");
+
+                entity.HasOne(d => d.SalesOrder)
+                    .WithMany(p => p.SalesOrderItems)
+                    .HasForeignKey(d => d.SalesOrderId)
+                    .HasConstraintName("sales_order_fk_1");
+            });
+
+            modelBuilder.Entity<Stock>(entity =>
+            {
+                entity.ToTable("stock");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.CategoryName)
+                    .HasMaxLength(20)
+                    .HasColumnName("category_name");
+
+                entity.Property(e => e.EmpId).HasColumnName("emp_id");
+
+                entity.Property(e => e.ItemName)
+                    .HasMaxLength(20)
+                    .HasColumnName("item_name");
+
+                entity.Property(e => e.ItemQty).HasColumnName("item_qty");
+
+                entity.Property(e => e.SellingPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("selling_price");
+
+                entity.Property(e => e.StatusId).HasColumnName("status_id");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasPrecision(20, 2)
+                    .HasColumnName("unit_price");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.Stocks)
+                    .HasForeignKey(d => d.EmpId)
+                    .HasConstraintName("stock_fk_1");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Stocks)
+                    .HasForeignKey(d => d.StatusId)
+                    .HasConstraintName("stock_fk_2");
+            });
+
+            modelBuilder.Entity<StockStatus>(entity =>
+            {
+                entity.ToTable("stock_status");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(30)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(30)
+                    .HasColumnName("name");
+            });
+
             modelBuilder.Entity<Supplier>(entity =>
             {
                 entity.ToTable("supplier", "person");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("uuid_generate_v4()");
 
                 entity.Property(e => e.SupplierContact)
                     .HasMaxLength(10)
