@@ -10,3 +10,6 @@ Alter table purchase.purchase_order add column due_date timestamp without time z
 Alter table purchase.purchase_order add column prepared_employee uuid;
 alter table purchase.purchase_order add CONSTRAINT purchase_order_fk_2 FOREIGN KEY (prepared_employee)
         REFERENCES person.employee (id);
+
+-------------------Edited
+insert into settings.purchase_order_status(id,name) values(1,'Pending'),(2,'Rejected');

@@ -21,9 +21,14 @@ namespace KCommerceAPI.Models.Json.Input.Purchase.PurchaseOrder
         
         [JsonPropertyName("supplier_id")]
         public Guid? SupplierId { get; set; }
-        
-        [JsonPropertyName("total_qty")]
-        public int? TotalQty { get; set; }
+
+        [JsonIgnore]
+        public int? TotalQty {
+            get 
+            {
+                return this.Items.Sum(c => c.Qty);
+            } 
+        }
         
         [JsonPropertyName("terms_condition")]
         public string? TermsCondition { get; set; }

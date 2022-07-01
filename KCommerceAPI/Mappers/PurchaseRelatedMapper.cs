@@ -9,6 +9,7 @@ namespace KCommerceAPI.Mappers
         public PurchaseRelatedMapper()
         {
             CreateMap<PurchaseOrderInputJson, dbCore.PurchaseOrder>();
+            CreateMap<PurchaseOrderItemInputJson, dbCore.PurchaseOrderItem>();
 
         }
         

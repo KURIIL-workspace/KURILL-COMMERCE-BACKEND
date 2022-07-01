@@ -21,7 +21,9 @@ namespace KCommerceAPI.Logic.Purchase.PurchaseOrder
             using (var scope = new TransactionScope(TransactionScopeOption.Required,
                               TransactionScopeAsyncFlowOption.Enabled))
             {
-
+                purchaseOrder.StatusId = 1;
+                purchaseOrder.CreatedDateTime = DateTime.Now;
+                purchaseOrder.UpdatedDateTime = DateTime.Now;
 
                 kComDbContext.PurchaseOrders.Add(purchaseOrder);
                 await kComDbContext.SaveChangesAsync();

@@ -19,10 +19,12 @@ namespace KCommerceAPI.Logic.Person.Employee
         {
         }
 
+
         public async Task<Guid> AddNewAsync(dbCore.Employee employee)
         {
 
             employee.Code = await GetNextDocumentCode(DocumentType.EMPLOYEE, kComDbContext.Employees.AsNoTracking().Count());
+
             using (var scope = new TransactionScope(TransactionScopeOption.Required,
                                TransactionScopeAsyncFlowOption.Enabled))
             {
