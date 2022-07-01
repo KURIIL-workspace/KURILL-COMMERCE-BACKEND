@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KCommerceAPI.Controllers
 {
-    [Route("api/employee_login")]
+    [Route("api/employee_logins")]
     [ApiController]
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(ErrorResultJson))]

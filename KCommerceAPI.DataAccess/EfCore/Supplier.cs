@@ -9,6 +9,7 @@ namespace KCommerceAPI.DataAccess.EfCore
         {
             Addresses = new HashSet<Address>();
             PurchaseInvoices = new HashSet<PurchaseInvoice>();
+            PurchaseOrders = new HashSet<PurchaseOrder>();
         }
 
         public Guid Id { get; set; }
@@ -17,5 +18,6 @@ namespace KCommerceAPI.DataAccess.EfCore
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<PurchaseInvoice> PurchaseInvoices { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
     }
 }

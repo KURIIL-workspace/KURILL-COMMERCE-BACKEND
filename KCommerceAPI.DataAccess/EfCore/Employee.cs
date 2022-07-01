@@ -11,6 +11,7 @@ namespace KCommerceAPI.DataAccess.EfCore
             EmployeeLogins = new HashSet<EmployeeLogin>();
             GoodsRecieveNotes = new HashSet<GoodsRecieveNote>();
             PurchaseInvoices = new HashSet<PurchaseInvoice>();
+            PurchaseOrders = new HashSet<PurchaseOrder>();
             Stocks = new HashSet<Stock>();
         }
 
@@ -27,6 +28,7 @@ namespace KCommerceAPI.DataAccess.EfCore
         public virtual ICollection<EmployeeLogin> EmployeeLogins { get; set; }
         public virtual ICollection<GoodsRecieveNote> GoodsRecieveNotes { get; set; }
         public virtual ICollection<PurchaseInvoice> PurchaseInvoices { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
     }
 }

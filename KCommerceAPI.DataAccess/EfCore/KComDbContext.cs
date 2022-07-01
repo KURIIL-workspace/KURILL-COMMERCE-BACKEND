@@ -42,7 +42,7 @@ namespace KCommerceAPI.DataAccess.EfCore
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("User ID=postgres;Password=Nexu1000;Server=localhost;Port=5432;Database=k_com_db_1");
+                optionsBuilder.UseNpgsql("User ID=postgres;Password=Annites99#;Server=localhost;Port=5432;Database=k_com_db_1");
             }
         }
 
@@ -398,20 +398,56 @@ namespace KCommerceAPI.DataAccess.EfCore
                     .HasColumnName("created_date_time")
                     .HasDefaultValueSql("(now())::timestamp without time zone");
 
+                entity.Property(e => e.Description)
+                    .HasMaxLength(50)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.DueDate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("due_date");
+
+                entity.Property(e => e.OrderDate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("order_date");
+
+                entity.Property(e => e.PreparedEmployee).HasColumnName("prepared_employee");
+
+                entity.Property(e => e.ShipToAddress)
+                    .HasMaxLength(100)
+                    .HasColumnName("ship_to_address");
+
                 entity.Property(e => e.StatusId).HasColumnName("status_id");
+
+                entity.Property(e => e.SupplierId).HasColumnName("supplier_id");
+
+                entity.Property(e => e.TermsCondition)
+                    .HasMaxLength(500)
+                    .HasColumnName("terms_condition");
 
                 entity.Property(e => e.TotalPrice)
                     .HasPrecision(28, 2)
                     .HasColumnName("total_price");
 
+                entity.Property(e => e.TotalQty).HasColumnName("total_qty");
+
                 entity.Property(e => e.UpdatedDateTime)
                     .HasColumnType("timestamp without time zone")
                     .HasColumnName("updated_date_time");
+
+                entity.HasOne(d => d.PreparedEmployeeNavigation)
+                    .WithMany(p => p.PurchaseOrders)
+                    .HasForeignKey(d => d.PreparedEmployee)
+                    .HasConstraintName("purchase_order_fk_2");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.PurchaseOrders)
                     .HasForeignKey(d => d.StatusId)
                     .HasConstraintName("purchase_order_fk");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.PurchaseOrders)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("purchase_order_fk_1");
             });
 
             modelBuilder.Entity<PurchaseOrderItem>(entity =>
