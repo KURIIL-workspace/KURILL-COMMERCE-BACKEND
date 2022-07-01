@@ -9,7 +9,7 @@ using dbCore = KCommerceAPI.DataAccess.EfCore;
 
 namespace KCommerceAPI.Controllers.Person.Supplier
 {
-    [Route("api/supplier")]
+    [Route("api/suppliers")]
     [ApiController]
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(ErrorResultJson))]

@@ -8,7 +8,7 @@ namespace KCommerceAPI.Mappers
     {
         public ContactRelatedMapper()
         {
-            CreateMap<AddressInputJson, dbCore.Supplier>();
+            CreateMap<AddressInputJson, dbCore.Address>();
         }
     }
 }

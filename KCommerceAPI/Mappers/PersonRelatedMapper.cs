@@ -15,7 +15,7 @@ namespace KCommerceAPI.Mappers
             CreateMap<dbCore.EmployeeLogin, EmployeeLoginResultJson>();
 
             CreateMap<SupplierInputJson, dbCore.Supplier>();
-            dbCore.Supplier sp = Mapper.Map<SupplierInputJson, dbCore.Supplier>(SupplierInputJson);
+            //dbCore.Supplier sp = Mapper.Map<SupplierInputJson, dbCore.Supplier>(SupplierInputJson);
 
         }
     }

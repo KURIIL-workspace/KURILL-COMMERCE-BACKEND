@@ -10,7 +10,7 @@ using dbCore = KCommerceAPI.DataAccess.EfCore;
 
 namespace KCommerceAPI.Controllers.Person.Employee
 {
-    [Route("api/employee")]
+    [Route("api/employees")]
     [ApiController]
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(ErrorResultJson))]
