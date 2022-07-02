@@ -8,6 +8,7 @@ namespace KCommerceAPI.DataAccess.EfCore
         public PurchaseOrder()
         {
             GoodsRecieveNotes = new HashSet<GoodsRecieveNote>();
+            PurchaseInvoices = new HashSet<PurchaseInvoice>();
             PurchaseOrderItems = new HashSet<PurchaseOrderItem>();
         }
 
@@ -29,6 +30,7 @@ namespace KCommerceAPI.DataAccess.EfCore
         public virtual PurchaseOrderStatus? Status { get; set; }
         public virtual Supplier? Supplier { get; set; }
         public virtual ICollection<GoodsRecieveNote> GoodsRecieveNotes { get; set; }
+        public virtual ICollection<PurchaseInvoice> PurchaseInvoices { get; set; }
         public virtual ICollection<PurchaseOrderItem> PurchaseOrderItems { get; set; }
     }
 }

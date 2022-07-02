@@ -2,6 +2,7 @@ using KCommerceAPI.Common;
 using KCommerceAPI.DataAccess.EfCore;
 using KCommerceAPI.Logic.Person.Employee;
 using KCommerceAPI.Logic.Person.Supplier;
+using KCommerceAPI.Logic.Purchase.PurchaseInvoice;
 using KCommerceAPI.Logic.Purchase.PurchaseOrder;
 using KCommerceAPI.Mappers;
 using KCommerceAPI.Models;
@@ -166,6 +167,7 @@ services.AddScoped<IEmployeeLoginLogic, EmployeeLoginLogic>();
 services.AddScoped<IEmployeeLogic, EmployeeLogic>();
 services.AddScoped<IPurchaseOrderLogic, PurchaseOrderLogic>();
 services.AddScoped<ISupplierLogic, SupplierLogic>();
+services.AddScoped<IPurchaseInvoiceLogic, PurchaseInvoiceLogic>();
 
 services.AddAutoMapper(typeof(PersonRelatedMapper));
 services.AddAutoMapper(typeof(ContactRelatedMapper));

@@ -9,7 +9,7 @@ using dbCore = KCommerceAPI.DataAccess.EfCore;
 
 namespace KCommerceAPI.Controllers.Purchase.PurchaseOrder
 {
-    [Route("api/purchase_invoice")]
+    [Route("api/purchase_order")]
     [ApiController]
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(ErrorResultJson))]
