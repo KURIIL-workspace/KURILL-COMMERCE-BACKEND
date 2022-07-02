@@ -309,11 +309,21 @@ namespace KCommerceAPI.DataAccess.EfCore
                     .HasColumnName("created_date_time")
                     .HasDefaultValueSql("(now())::timestamp without time zone");
 
+                entity.Property(e => e.InvoiceDate)
+                    .HasColumnType("timestamp without time zone")
+                    .HasColumnName("invoice_date");
+
                 entity.Property(e => e.PreparedEmployee).HasColumnName("prepared_employee");
+
+                entity.Property(e => e.PurchaseOrderId).HasColumnName("purchase_order_id");
 
                 entity.Property(e => e.StatusId).HasColumnName("status_id");
 
                 entity.Property(e => e.SupplierId).HasColumnName("supplier_id");
+
+                entity.Property(e => e.TotalAmount).HasColumnName("total_amount");
+
+                entity.Property(e => e.TotalItemQty).HasColumnName("total_item_qty");
 
                 entity.Property(e => e.UpdatedDateTime)
                     .HasColumnType("timestamp without time zone")
@@ -323,6 +333,11 @@ namespace KCommerceAPI.DataAccess.EfCore
                     .WithMany(p => p.PurchaseInvoices)
                     .HasForeignKey(d => d.PreparedEmployee)
                     .HasConstraintName("purchase_invoice_fk_3");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithMany(p => p.PurchaseInvoices)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .HasConstraintName("purchase_invoice_fk_4");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.PurchaseInvoices)
