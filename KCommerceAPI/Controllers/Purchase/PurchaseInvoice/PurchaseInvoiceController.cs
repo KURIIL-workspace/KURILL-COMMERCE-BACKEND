@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using KCommerceAPI.Logic.Purchase.PurchaseInvoice;
+using KCommerceAPI.Models;
+using KCommerceAPI.Models.Json.Input.Common;
 using KCommerceAPI.Models.Json.Input.Purchase.PurchaseInvoice;
 using KCommerceAPI.Models.Json.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using dbCore = KCommerceAPI.DataAccess.EfCore;
 
 namespace KCommerceAPI.Controllers.Purchase.PurchaseInvoice
@@ -34,6 +37,39 @@ namespace KCommerceAPI.Controllers.Purchase.PurchaseInvoice
             var purchaseInvoiceId = await purchaseInvoiceLogic.addNewAsync(purchaseInvoice);
 
             return Created("", purchaseInvoiceId.ToString());
+        }
+
+        [HttpPatch("{id}/status")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateStatus([FromRoute(Name = "id")] Guid Id, [FromBody] UpdateStatusInputJson statusChangeInputJson)
+        {
+            var updateStatusModel = mapper.Map<UpdateStatusModel>(statusChangeInputJson);
+            await purchaseInvoiceLogic.UpdatePurchaseInvoiceStatus(Id, updateStatusModel);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] Guid id)
+        {
+            await purchaseInvoiceLogic.DeleteAsync(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(EmployeeResultJson), 200)]
+        public async Task<IActionResult> Update([FromRoute(Name = "id")] Guid id, [FromBody] PurchaseInvoiceInputJson purchaseInvoiceInputJson)
+        {
+            var purchaseInvoice = mapper.Map<dbCore.PurchaseInvoice>(purchaseInvoiceInputJson);
+            await purchaseInvoiceLogic.UpdateAsync(id, purchaseInvoice);
+
+            //var result = mapper.Map<EmployeeResultJson>(employee);
+
+            return Ok();
         }
     }
 }

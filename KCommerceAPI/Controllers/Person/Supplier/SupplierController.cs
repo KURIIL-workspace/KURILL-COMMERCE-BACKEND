@@ -33,5 +33,28 @@ namespace KCommerceAPI.Controllers.Person.Supplier
             var supplierId = await supplierLogic.AddNewAsync(supplier);
             return Created("", supplierId.ToString());
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteAsync([FromRoute(Name = "id")] Guid id)
+        {
+            await supplierLogic.DeleteAsync(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{supplierId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(EmployeeResultJson), 200)]
+        public async Task<IActionResult> Update([FromRoute(Name = "supplierId")] Guid supplierId, [FromBody] SupplierInputJson supplierInputJson)
+        {
+            var supplier = mapper.Map<dbCore.Supplier>(supplierInputJson);
+            await supplierLogic.UpdateAsync(supplierId, supplier);
+
+            //var result = mapper.Map<EmployeeResultJson>();
+
+            return Ok();
+        }
     }
 }
