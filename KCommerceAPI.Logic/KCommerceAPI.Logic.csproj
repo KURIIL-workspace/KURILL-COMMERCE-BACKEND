@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KCommerceAPI.DataAccess\KCommerceAPI.DataAccess.csproj" />
+    <ProjectReference Include="..\KCommerceAPI.Models\KCommerceAPI.Models.csproj" />
   </ItemGroup>
 
 </Project>
